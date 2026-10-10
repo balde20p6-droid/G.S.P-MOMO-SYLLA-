@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Momo Sylla Connect</title>
+<meta name="theme-color" content="#1f4e96">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Momo Sylla">
+<style>
+:root{--bleu:#1f4e96;--rouge:#2b6cd4;--creme:#f5f8fd;--encre:#1a2238;--gris:#6b7280;--blanc:#fff}
+*{box-sizing:border-box;margin:0}
+body{font-family:Georgia,'Times New Roman',serif;background:var(--creme);color:var(--encre);padding-bottom:76px}
+header{background:var(--bleu);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px;border-bottom:4px solid var(--rouge)}
+#logo{width:86px;height:auto;flex:none;background:#f0ece1;border-radius:16px;padding:2px}
+.emb{width:52px;height:52px;border-radius:50%;background:#fff;color:var(--rouge);display:flex;align-items:center;justify-content:center;font:700 12px Georgia}
+header h1{font-size:18px;line-height:1.2}header small{opacity:.85;font-size:12px}
+main{padding:16px;max-width:640px;margin:auto}
+h2{font-size:20px;color:var(--bleu);margin:4px 0 12px}
+.card{background:#fff;border-left:4px solid var(--bleu);border-radius:6px;padding:12px 14px;margin-bottom:10px}
+.card h3{font-size:16px;margin-bottom:4px}.card p{font-size:14px;line-height:1.5}
+.meta{font-size:12px;color:var(--gris);margin-top:6px}
+.devise{background:var(--bleu);color:#fff;padding:18px;border-radius:6px;text-align:center;margin-bottom:12px}
+.devise b{color:#cfe0ff}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#fff;border-top:2px solid var(--bleu)}
+nav button{flex:1;padding:12px 2px;border:0;background:none;font:600 12px Georgia;color:var(--gris)}
+nav button.on{color:var(--rouge);border-top:3px solid var(--rouge);margin-top:-3px}
+button.act,.btn{background:var(--rouge);color:#fff;border:0;border-radius:6px;padding:10px 14px;font:600 14px Georgia;text-decoration:none;display:inline-block}
+button.sec{background:var(--bleu)}button.del{background:none;color:var(--rouge);border:1px solid var(--rouge);padding:4px 8px;font-size:12px;border-radius:6px;float:right}
+input,textarea,select{width:100%;padding:10px;margin:0 0 8px;border:1px solid #bccbe3;border-radius:6px;font:15px Georgia;background:#fff}
+.form{background:#fff;padding:12px;border-radius:6px;margin-bottom:14px;border:1px dashed var(--bleu)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid img{width:100%;height:130px;object-fit:cover;border-radius:6px}
+.fig{position:relative}.fig .del{position:absolute;top:4px;right:4px;background:#fff}
+.vide{color:var(--gris);text-align:center;padding:24px 8px;font-size:14px}
+#etat{font-size:11px;padding:6px 16px;background:#e3ebf7;color:var(--gris)}
+.pill{display:inline-block;background:var(--rouge);color:#fff;border-radius:99px;padding:2px 10px;font-size:12px}
+.hide{display:none!important}
+
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.tile{background:#fff;border:1px solid #d5e0f2;border-radius:10px;padding:14px 8px;text-align:center;font:inherit;color:var(--bleu)}
+.tile b{display:block;font-size:26px;color:var(--rouge)}.tile span{font-size:13px;font-weight:700}
+details.card summary{list-style:none;cursor:pointer}details.card summary::-webkit-details-marker{display:none}
+details.card summary .ttl{display:block;font-weight:700;font-size:16px}
+details.card summary::after{content:"Lire la suite ▾";display:block;color:var(--rouge);font-size:12px;margin-top:4px}
+details.card[open] summary::after{content:"Réduire ▴"}
+details.card p{margin-top:10px;border-top:1px solid #e3ebf7;padding-top:10px;white-space:pre-wrap}
+.lien{cursor:pointer}td .del{float:none;display:block;margin-top:6px}
+.tw{overflow-x:auto;background:#fff;border-radius:8px;border:1px solid #d5e0f2;margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{background:var(--bleu);color:#fff;text-align:left;padding:8px 10px;font-size:13px}
+td{padding:8px 10px;border-top:1px solid #e3ebf7;vertical-align:middle}
+.eph{width:52px;height:52px;border-radius:50%;object-fit:cover;display:block;border:2px solid var(--bleu)}
+.ini{width:52px;height:52px;border-radius:50%;background:#e3ebf7;color:var(--bleu);display:flex;align-items:center;justify-content:center;font-weight:700}
+#lb{position:fixed;inset:0;background:#000;z-index:50;display:flex;align-items:center;justify-content:center}
+#lb.hide{display:none!important}#lb img{max-width:100%;max-height:100%;object-fit:contain}
+#lb button{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.2);color:#fff;border:0;border-radius:50%;width:42px;height:42px;font-size:22px}
+#gear{margin-left:auto;background:rgba(255,255,255,.15);color:#fff;border:0;border-radius:50%;width:38px;height:38px;font-size:18px}
+.next{background:linear-gradient(135deg,#2b6cd4,#1f4e96);color:#fff;border-radius:10px;padding:14px 16px;margin-bottom:12px;display:flex;flex-direction:column;gap:2px}
+.next small{opacity:.85;font-size:12px;text-transform:uppercase;letter-spacing:.06em}.next b{font-size:26px}.next span{font-size:15px}
+.evt{display:flex;gap:12px;align-items:flex-start}.evt.passe{opacity:.55}
+.dt{flex:none;width:54px;background:var(--bleu);color:#fff;border-radius:8px;text-align:center;padding:6px 0}
+.dt b{display:block;font-size:22px}.dt span{font-size:12px;text-transform:uppercase}
+.inf{flex:1}.inf p{margin:2px 0 8px}.share{font-size:12px;color:var(--rouge);margin-left:8px;font-weight:700}
+.ph{display:flex;align-items:center;gap:10px;margin-bottom:8px}.ph b{font-size:14px}
+.av{width:58px;height:42px;border-radius:8px;object-fit:contain;background:#f0ece1;flex:none}
+.pimg{display:block;width:100%;max-height:380px;object-fit:cover;border-radius:8px;margin-top:8px}
+.thumb{width:64px;height:64px;object-fit:cover;border-radius:8px;flex:none}
+details.post{border-left-width:1px;border:1px solid #d5e0f2}
+</style>
+</head>
+<body>
+<header>
+  <img id="logo" src="logo.png" alt="Logo GSPMS Momo Sylla">
+  <div><h1>Momo Sylla Connect</h1><small>Groupe Scolaire Privé Momo Sylla</small></div>
+<button id="gear" onclick="go('admin')" aria-label="Administration">⚙</button>
+</header>
+<div id="etat">Connexion…</div>
+<button id="inst" class="act hide" style="margin:10px 16px 0">Installer l'application</button>
+<main id="vue"></main>
+<nav id="nav"></nav>
+<div id="lb" class="hide" onclick="fermer()"><button aria-label="Fermer">✕</button><img id="lbi" alt=""></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/* ====== 1. FIREBASE : colle ta configuration ici ======
+   Console Firebase > Paramètres du projet > Tes applications > Web > firebaseConfig
+   Tant que apiKey vaut "COLLE_ICI", l'app marche en mode local (téléphone seulement). */
+const CODE_ADMIN = "Momo 2026 sylla 224"; /* change ce code */
+const firebaseConfig = {
+  apiKey: "AIzaSyAqMsDkzD_XlaHaXVUWaa0UG8qWhBEhvqk",
+  authDomain: "momo-sylla.firebaseapp.com",
+  projectId: "momo-sylla",
+  storageBucket: "momo-sylla.firebasestorage.app",
+  messagingSenderId: "1034941562502",
+  appId: "1:1034941562502:web:64194b5f435d2870959b07"
+};
+
+/* ====== 2. COUCHE DONNÉES (Firebase ou local) ====== */
+const COLS = ["news","gallery","contacts","excellence","agenda"];
+const data = {news:[],gallery:[],contacts:[],excellence:[],agenda:[]};
+let db = null, admin = false, onglet = "accueil";
+const enLigne = firebaseConfig.apiKey !== "COLLE_ICI" && typeof firebase !== "undefined";
+
+function chargerLocal(c){ try{ return JSON.parse(localStorage.getItem("msc_"+c)) || []; }catch(e){ return []; } }
+function sauverLocal(c){ try{ localStorage.setItem("msc_"+c, JSON.stringify(data[c])); }catch(e){ alert("Mémoire pleine : supprime des photos."); } }
+
+function init(){
+  if(enLigne){
+    try{
+      firebase.initializeApp(firebaseConfig);
+      db = firebase.firestore();
+      COLS.forEach(c => db.collection(c).orderBy("t","desc").onSnapshot(
+        s => { data[c] = s.docs.map(d => ({id:d.id, ...d.data()})); dessiner(); etat(true); },
+        e => etat(false, e.message)));
+      return;
+    }catch(e){ etat(false, e.message); }
+  }
+  COLS.forEach(c => data[c] = chargerLocal(c));
+  etat(false);
+  dessiner();
+}
+function etat(ok, err){
+  document.getElementById("etat").textContent = ok ? "En ligne : données partagées (Firebase)"
+    : (firebaseConfig.apiKey !== "COLLE_ICI") && !enLigne ? "Firebase non chargé : ouvre l'app dans Chrome avec internet"
+    : enLigne ? "Erreur Firebase : " + (err||"") + " (vérifie les règles Firestore)"
+    : "Mode local : ajoute ta config Firebase pour partager les données";
+}
+async function ajouter(c, obj){
+  obj.t = Date.now();
+  if(db){ await db.collection(c).add(obj); }
+  else { obj.id = "l"+obj.t; data[c].unshift(obj); sauverLocal(c); dessiner(); }
+}
+async function supprimer(c, id){
+  if(!confirm("Supprimer cet élément ?")) return;
+  if(db){ await db.collection(c).doc(id).delete(); }
+  else { data[c] = data[c].filter(x => x.id !== id); sauverLocal(c); dessiner(); }
+}
+
+/* ====== 3. OUTILS ====== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const date = t => new Date(t).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
+const tel = n => String(n).replace(/[^\d+]/g,"");
+const delBtn = (c,id) => admin ? `<button class="del" onclick="supprimer('${c}','${esc(id)}')">Supprimer</button>` : "";
+function reduirePhoto(file, max=1200){ /* réduit la photo pour tenir dans Firestore (1 Mo max par document) */
+  return new Promise((ok,ko)=>{
+    const r = new FileReader();
+    r.onerror = ko;
+    r.onload = () => { const im = new Image(); im.onerror = ko;
+      im.onload = () => { const k = Math.min(1, max/Math.max(im.width, im.height));
+        const cv = document.createElement("canvas"); cv.width = im.width*k; cv.height = im.height*k;
+        cv.getContext("2d").drawImage(im,0,0,cv.width,cv.height); ok(cv.toDataURL("image/jpeg",.72)); };
+      im.src = r.result; };
+    r.readAsDataURL(file);
+  });
+}
+
+/* ====== 4. PAGES ====== */
+const jours = d => { const a = new Date(d+"T00:00:00"), n = new Date(); n.setHours(0,0,0,0); return Math.round((a-n)/864e5); };
+const reste = j => j<0 ? "Terminé" : j===0 ? "Aujourd'hui" : j===1 ? "Demain" : "Dans "+j+" jours";
+const dlong = d => new Date(d+"T00:00:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});
+const prochain = () => { const e = data.agenda.filter(x => jours(x.date)>=0).sort((a,b)=>a.date.localeCompare(b.date))[0]; return e ? `<div class="next lien" onclick="go('agenda')"><small>Prochain événement</small><b>${reste(jours(e.date))}</b><span>${esc(e.titre)} · ${esc(dlong(e.date))}</span></div>` : ""; };
+const ouverts = new Set();
+const vide = t => `<div class="vide">${t}</div>`;
+const pages = {
+  accueil(){
+    const t = [["news","Actualités",data.news.length],["gallery","Galerie",data.gallery.length],["contacts","Contacts",data.contacts.length],["excellence","Excellence",data.excellence.length]];
+    return `<div class="devise"><div style="font-size:13px;opacity:.85">L'école, les élèves et les parents connectés.</div>
+      <h2 style="color:#fff;margin:8px 0">Travail · Rigueur · <b>Réussite</b></h2></div>
+      ${prochain()}
+      <div class="tiles">` + t.map(([k,l,n]) => `<button class="tile" onclick="go('${k}')"><b>${n}</b><span>${l}</span></button>`).join("") + `</div>
+      <h2>Dernières actualités</h2>` +
+      (data.news.slice(0,3).map(n => `<div class="card lien" onclick="go('news')" style="display:flex;gap:10px;align-items:center">${n.img ? `<img class="thumb" src="${n.img}" alt="">` : ""}<div><h3>${esc(n.titre)}</h3><div class="meta">${date(n.t)} · Lire →</div></div></div>`).join("") || vide("Aucune actualité pour le moment.")) +
+      `<div class="meta" style="text-align:center;margin-top:16px">Application créée par Mamadou Samba Balde</div>`;
+  },
+  news(){
+    return `<h2>Actualités</h2>` + (admin ? `<div class="form"><input id="nt" placeholder="Titre"><textarea id="nx" rows="4" placeholder="Texte de l'annonce"></textarea><input id="nf" type="file" accept="image/*"><button class="act" onclick="addNews()">Publier</button></div>` : "") +
+      (data.news.map(n => { const k = "n"+n.id; return `<details class="card post" data-k="${k}" ${ouverts.has(k)?"open":""} ontoggle="this.open?ouverts.add(this.dataset.k):ouverts.delete(this.dataset.k)"><summary><div class="ph"><img class="av" src="logo.png" alt=""><div><b>Groupe Scolaire Momo Sylla</b><span class="meta" style="display:block;margin:0">${date(n.t)}</span></div></div><span class="ttl">${esc(n.titre)}</span>${n.img ? `<img class="pimg" src="${n.img}" alt="" onclick="event.preventDefault();event.stopPropagation();voir(this.src)">` : ""}</summary><p>${esc(n.texte)}</p>${delBtn("news",n.id)}</details>`; }).join("") || vide("Aucune actualité publiée."));
+  },
+  gallery(){
+    return `<h2>Galerie</h2>` + (admin ? `<div class="form"><input id="gl" placeholder="Légende (facultatif)"><input id="gf" type="file" accept="image/*"><button class="act" onclick="addPhoto()">Ajouter la photo</button></div>` : "") +
+      (data.gallery.length ? `<div class="grid">` + data.gallery.map(g => `<div class="fig"><img src="${g.img}" alt="${esc(g.legende)}" onclick="voir(this.src)">${delBtn("gallery",g.id)}<div class="meta">${esc(g.legende)}</div></div>`).join("") + `</div>` : vide("Aucune photo pour le moment."));
+  },
+  agenda(){
+    const l = [...data.agenda].sort((a,b)=>a.date.localeCompare(b.date));
+    const carte = e => { const j = jours(e.date), d = new Date(e.date+"T00:00:00"), txt = encodeURIComponent("📅 "+e.titre+" — "+dlong(e.date)+(e.lieu?" · "+e.lieu:"")+"\nGroupe Scolaire Privé Momo Sylla");
+      return `<div class="card evt ${j<0?"passe":""}"><div class="dt"><b>${d.getDate()}</b><span>${d.toLocaleDateString("fr-FR",{month:"short"})}</span></div><div class="inf"><h3>${esc(e.titre)}</h3><p>${esc(dlong(e.date))}${e.lieu?" · "+esc(e.lieu):""}</p><span class="pill">${reste(j)}</span><a class="share" href="https://wa.me/?text=${txt}">Partager</a>${delBtn("agenda",e.id)}</div></div>`; };
+    const fut = l.filter(e => jours(e.date)>=0), pas = l.filter(e => jours(e.date)<0).reverse();
+    return `<h2>Agenda de l'école</h2>` + (admin ? `<div class="form"><input id="at" placeholder="Événement (ex. Rentrée, Examen, Fête)"><input id="ad" type="date"><input id="al" placeholder="Lieu (facultatif)"><button class="act" onclick="addAgenda()">Ajouter à l'agenda</button></div>` : "") +
+      (fut.map(carte).join("") || vide("Aucun événement à venir.")) + (pas.length ? `<h2 style="margin-top:18px;font-size:16px">Événements passés</h2>` + pas.slice(0,5).map(carte).join("") : "");
+  },
+  contacts(){
+    return `<h2>Contacts</h2>` + (admin ? `<div class="form"><input id="cn" placeholder="Nom ou service (ex. Direction)"><input id="cp" type="tel" placeholder="Téléphone (ex. +224 620 00 00 00)"><button class="act" onclick="addContact()">Ajouter le contact</button></div>` : "") +
+      (data.contacts.map(c => `<div class="card">${delBtn("contacts",c.id)}<h3>${esc(c.nom)}</h3><p>${esc(c.tel)}</p><div style="margin-top:8px;display:flex;gap:8px"><a class="btn" href="tel:${tel(c.tel)}">Appeler</a><a class="btn sec" href="https://wa.me/${tel(c.tel).replace('+','')}">WhatsApp</a></div></div>`).join("") || vide("Aucun contact enregistré."));
+  },
+  excellence(){
+    const ini = n => esc(String(n).trim().split(/\s+/).slice(0,2).map(x => x[0]).join("").toUpperCase());
+    return `<h2>Tableau d'excellence</h2>` + (admin ? `<div class="form"><input id="en" placeholder="Nom de l'élève"><input id="ec" placeholder="Classe (ex. Terminale SM)"><input id="em" placeholder="Mention ou moyenne (ex. 16,5/20)"><input id="ep" type="file" accept="image/*"><button class="act" onclick="addExc()">Ajouter à l'excellence</button></div>` : "") +
+      (data.excellence.length ? `<div class="tw"><table><thead><tr><th>Photo</th><th>Élève</th><th>Classe</th><th>Mention</th></tr></thead><tbody>` +
+        data.excellence.map(e => `<tr><td>${e.photo ? `<img class="eph" src="${e.photo}" alt="" onclick="voir(this.src)">` : `<div class="ini">${ini(e.nom)}</div>`}</td><td><b>${esc(e.nom)}</b>${delBtn("excellence",e.id)}</td><td>${esc(e.classe)}</td><td><span class="pill">${esc(e.mention)}</span></td></tr>`).join("") + `</tbody></table></div>` : vide("Aucun élève au tableau d'excellence."));
+  },
+  admin(){
+    return `<h2>Espace administration</h2>` + (admin
+      ? `<div class="card"><p>Mode administrateur actif : tu peux ajouter et supprimer dans chaque rubrique.</p></div><button class="act" onclick="admin=false;go('accueil')">Quitter le mode admin</button>`
+      : `<div class="form"><input id="pin" type="password" autocapitalize="off" autocomplete="off" placeholder="Code administrateur"><button class="act" onclick="connexion()">Entrer</button></div>`);
+  }
+};
+
+/* ====== 5. ACTIONS ====== */
+async function addNews(){ const t=$("nt").value.trim(), x=$("nx").value.trim(); if(!t||!x) return alert("Remplis le titre et le texte."); let img=""; const f=$("nf").files[0]; if(f){ try{ img = await reduirePhoto(f,1000); }catch(e){ return alert("Photo impossible à ajouter."); } } ajouter("news",{titre:t,texte:x,img}); }
+async function addPhoto(){ const f=$("gf").files[0]; if(!f) return alert("Choisis une photo."); try{ const img = await reduirePhoto(f); await ajouter("gallery",{img, legende:$("gl").value.trim()}); }catch(e){ alert("Photo impossible à ajouter."); } }
+function addContact(){ const n=$("cn").value.trim(), p=$("cp").value.trim(); if(!n||!p) return alert("Remplis le nom et le téléphone."); ajouter("contacts",{nom:n,tel:p}); }
+async function addExc(){ const n=$("en").value.trim(), c=$("ec").value.trim(), m=$("em").value.trim(); if(!n||!c||!m) return alert("Remplis le nom, la classe et la mention."); let photo=""; const f=$("ep").files[0]; if(f){ try{ photo = await reduirePhoto(f,360); }catch(e){ return alert("Photo impossible à ajouter."); } } ajouter("excellence",{nom:n,classe:c,mention:m,photo}); }
+function addAgenda(){ const t=$("at").value.trim(), d=$("ad").value, l=$("al").value.trim(); if(!t||!d) return alert("Remplis l'événement et la date."); ajouter("agenda",{titre:t,date:d,lieu:l}); }
+function voir(src){ $("lbi").src = src; $("lb").classList.remove("hide"); }
+function fermer(){ $("lb").classList.add("hide"); $("lbi").src = ""; }
+function connexion(){ if($("pin").value.trim().toLowerCase() === CODE_ADMIN.toLowerCase()){ admin = true; go("accueil"); } else alert("Code incorrect."); }
+
+/* ====== 6. NAVIGATION ====== */
+const menu = [["accueil","Accueil"],["news","Actus"],["agenda","Agenda"],["gallery","Galerie"],["contacts","Contacts"],["excellence","Excellence"]];
+function go(p){ onglet = p; dessiner(); window.scrollTo(0,0); }
+function dessiner(){
+  const actif = document.activeElement && document.activeElement.id;
+  if(actif && /^(nt|nx|nf|gl|cn|cp|en|ec|em|ep|at|ad|al|pin|pw)$/.test(actif)) return; /* ne pas effacer une saisie en cours quand Firebase met à jour */
+  $("vue").innerHTML = pages[onglet]();
+  $("nav").innerHTML = menu.map(([k,l]) => `<button class="${k===onglet?'on':''}" onclick="go('${k}')">${l}</button>`).join("");
+}
+let invite = null;
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); invite = e; $("inst").classList.remove("hide"); });
+$("inst").onclick = async () => { if(!invite) return; invite.prompt(); await invite.userChoice; invite = null; $("inst").classList.add("hide"); };
+window.addEventListener("appinstalled", () => $("inst").classList.add("hide"));
+if("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("sw.js").catch(()=>{});
+init();
+dessiner();
+</script>
+</body>
+</html>
